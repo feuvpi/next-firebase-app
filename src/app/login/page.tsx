@@ -1,6 +1,23 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+"use client";
 import React from "react";
+import { UserAuth } from "@/app/context/AuthContext";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const { user, googleSignIn, logOut } = UserAuth();
+  const router = useRouter();
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+      router.push("/profile");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
@@ -20,7 +37,6 @@ const page = () => {
           <p className="text-center text-lg font-medium">
             Sign in to your account
           </p>
-
           <div>
             <label htmlFor="email" className="sr-only">
               Email
@@ -51,7 +67,6 @@ const page = () => {
               </span>
             </div>
           </div>
-
           <div>
             <label htmlFor="password" className="sr-only">
               Password
@@ -88,20 +103,35 @@ const page = () => {
               </span>
             </div>
           </div>
-
           <button
             type="submit"
             className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
           >
             Sign in
           </button>
-
-          <p className="text-center text-sm text-gray-500">
+          <p className="text-center text-sm text-gray-500 mb-4">
             No account?
-            <a className="underline" href="">
+            <a className="underline" href="/register">
               Sign up
             </a>
           </p>
+          {/* Google Sign-In Button */}
+          {/* Replace the content below with your Google logo SVG or image */}
+          <div className="flex place-content-center pt-4">
+            <div
+              className="text-center self-center"
+              onClick={handleGoogleSignIn}
+            >
+              <Image
+                src="/google_logo.svg"
+                width="64"
+                height="64" // Replace with the path to your Google logo
+                alt="Google Logo"
+                className="text-center self-center"
+              />
+            </div>
+          </div>
+          Sign in with Google
         </form>
       </div>
     </div>
