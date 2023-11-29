@@ -4,13 +4,7 @@ import { UserAuth } from "../app/context/AuthContext";
 export const Sidemenu = () => {
   const { user, googleSignIn, logOut } = UserAuth();
 
-  const handleSignOut = async () => {
-    try {
-      await logOut;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   return (
     <div className="flex h-screen flex-col justify-between border-e bg-white">
       <div className="px-4 py-6">
